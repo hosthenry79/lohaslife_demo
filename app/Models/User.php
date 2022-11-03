@@ -2,43 +2,79 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use App\Models\User\Address;
+use App\Models\User\Profile;
+use App\Models\User\Sns;
+use Encore\Admin\Traits\AdminBuilder;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use AdminBuilder;
+
+    //use Faker;
+
+    protected $table = 'demo_users';
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes excluded from the model's JSON form.
      *
-     * @var array<int, string>
+     * @var array
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function sns()
+    {
+        return $this->hasOne(Sns::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'demo_friends', 'user_id', 'friend_id')->withPivot('remark');
+    }
+
+    /**
+     * @param $query
+     * @param $gender
+     * @return mixed
+     */
+    public function scopeGender($query, $gender)
+    {
+        if (!in_array($gender, ['m', 'f'])) {
+            return $query;
+        }
+
+        return $query->whereHas('profile', function ($query) use ($gender) {
+            $query->where('gender',  $gender);
+        });
+    }
+
+    public function searchableAs()
+    {
+        return 'users';
+    }
 }
+

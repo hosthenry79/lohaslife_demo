@@ -11,7 +11,7 @@ return [
     | login page.
     |
     */
-    'name' => 'Laravel-admin',
+    'name'      => 'Laravel-admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => '<b>Laravel</b> admin',
+    'logo'      => '<b>Laravel</b> admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -58,11 +58,11 @@ return [
     */
     'route' => [
 
-        'prefix' => env('ADMIN_ROUTE_PREFIX', 'admin'),
+        'prefix' => '',
 
-        'namespace' => 'App\\Admin\\Controllers',
+        'namespace'     => 'App\\Admin\\Controllers',
 
-        'middleware' => ['web', 'admin'],
+        'middleware'    => ['web', 'admin', 'deny'],
     ],
 
     /*
@@ -85,7 +85,7 @@ return [
     | Html title for all pages.
     |
     */
-    'title' => 'Admin',
+    'title'  => 'Admin',
 
     /*
     |--------------------------------------------------------------------------
@@ -105,27 +105,20 @@ return [
     | Authentication settings for all admin pages. Include an authentication
     | guard and a user provider setting of authentication driver.
     |
-    | You can specify a controller for `login` `logout` and other auth routes.
-    |
     */
     'auth' => [
-
-        'controller' => App\Admin\Controllers\AuthController::class,
-
-        'guard' => 'admin',
-
         'guards' => [
             'admin' => [
-                'driver'   => 'session',
+                'driver' => 'session',
                 'provider' => 'admin',
-            ],
+            ]
         ],
 
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
                 'model'  => Encore\Admin\Auth\Database\Administrator::class,
-            ],
+            ]
         ],
 
         // Add "remember me" to login form
@@ -150,16 +143,14 @@ return [
     | disk and upload path.
     |
     */
-    'upload' => [
+    'upload'  => [
 
-        // Disk in `config/filesystem.php`.
         'disk' => 'admin',
 
-        // Image and file upload path under the disk above.
-        'directory' => [
-            'image' => 'images',
-            'file'  => 'files',
-        ],
+        'directory'  => [
+            'image'  => 'images',
+            'file'   => 'files',
+        ]
     ],
 
     /*
@@ -173,7 +164,7 @@ return [
     'database' => [
 
         // Database connection for following tables.
-        'connection' => '',
+        'connection'  => '',
 
         // User tables and model.
         'users_table' => 'admin_users',
@@ -188,8 +179,8 @@ return [
         'permissions_model' => Encore\Admin\Auth\Database\Permission::class,
 
         // Menu table and model.
-        'menu_table' => 'admin_menu',
-        'menu_model' => Encore\Admin\Auth\Database\Menu::class,
+        'menu_table'  => 'admin_menu',
+        'menu_model'  => Encore\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
         'operation_log_table'    => 'admin_operation_log',
@@ -207,7 +198,7 @@ return [
     | By setting this option to open or close operation log in laravel-admin.
     |
     */
-    'operation_log' => [
+    'operation_log'   => [
 
         'enable' => true,
 
@@ -223,23 +214,9 @@ return [
          * or specific method to path like: get:admin/auth/logs.
          */
         'except' => [
-            env('ADMIN_ROUTE_PREFIX', 'admin').'/auth/logs*',
+            'admin/auth/logs*',
         ],
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Indicates whether to check route permission.
-    |--------------------------------------------------------------------------
-    */
-    'check_route_permission' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Indicates whether to check menu roles.
-    |--------------------------------------------------------------------------
-    */
-    'check_menu_roles'       => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -267,7 +244,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value is the skin of admin pages.
-    | @see https://adminlte.io/docs/2.4/layout
+    | @see https://adminlte.io/docs/2.4/skin
     |
     | Supported:
     |    "skin-blue", "skin-blue-light", "skin-yellow", "skin-yellow-light",
@@ -275,7 +252,7 @@ return [
     |    "skin-red", "skin-red-light", "skin-black", "skin-black-light".
     |
     */
-    'skin' => env('ADMIN_SKIN', 'skin-blue-light'),
+    'skin' => 'skin-blue-light',
 
     /*
     |--------------------------------------------------------------------------
@@ -289,7 +266,7 @@ return [
     | "sidebar-mini".
     |
     */
-    'layout' => ['sidebar-mini', 'sidebar-collapse'],
+    'layout'  => ['sidebar-mini'],
 
     /*
     |--------------------------------------------------------------------------
@@ -299,14 +276,14 @@ return [
     | This value is used to set the background image of login page.
     |
     */
-    'login_background_image' => '',
+    'login_background_image' => '/img/login-bg.jpg',
 
     /*
     |--------------------------------------------------------------------------
     | Show version at footer
     |--------------------------------------------------------------------------
     |
-    | Whether to display the version number of laravel-admin at the footer of
+    | Whether to display the version number of laravel-admim at the footer of
     | each page
     |
     */
@@ -363,16 +340,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Exclude route from generate menu command
-    |--------------------------------------------------------------------------
-    */
-    'menu_exclude' => [
-        '_handle_selectable_',
-        '_handle_renderable_',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Alert message that will displayed on top of the page.
     |--------------------------------------------------------------------------
     */
@@ -383,7 +350,7 @@ return [
     | The global Grid action display class.
     |--------------------------------------------------------------------------
     */
-    'grid_action_class' => \Encore\Admin\Grid\Displayers\DropdownActions::class,
+//    'grid_action_class' => \Encore\Admin\Grid\Displayers\DropdownActions::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -393,7 +360,7 @@ return [
     | When you use command `php artisan admin:extend` to generate extensions,
     | the extension files will be generated in this directory.
     */
-    'extension_dir' => app_path('Admin/Extensions'),
+    'extension_dir' => admin_path('extensions'),
 
     /*
     |--------------------------------------------------------------------------
@@ -406,5 +373,33 @@ return [
     */
     'extensions' => [
 
-    ],
+        'media-manager' => [
+            'disk' => 'uploads'
+        ],
+
+        'api-tester' => [
+            'prefix' => 'api',
+
+            'guard'  => 'api',
+
+            'user_retriever' => function ($id) {
+                return \App\User::find($id);
+            },
+        ],
+
+        'phpinfo' => [
+            'what' => INFO_ALL^INFO_VARIABLES^INFO_ENVIRONMENT
+        ],
+
+        'wang-editor' => [
+
+            // 如果要关掉这个扩展，设置为false
+            'enable' => true,
+
+            // 编辑器的配置
+            'config' => [
+                'uploadImgServer' => '/upload',
+            ]
+        ]
+    ]
 ];
