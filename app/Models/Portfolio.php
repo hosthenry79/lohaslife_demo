@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class Category extends Model
+class Portfolio extends Model implements Sortable
 {
     use SortableTrait;
 
-    protected $table = 'demo_categories';
+    protected $table = 'demo_portfolios';
 
     public $sortable = [
         'order_column_name' => 'order',
