@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-   return view('front/index');
-});
+// Route::get('/', function () {
+//    return view('front/index');
+// });
+Route::get('/', 'HomeController@index')->name('home');
+Route::post('/ajaxLangChange', 'HomeController@ajaxLangChange')->name('ajaxLangChange');
+Route::get('/insertDefaultDataIntoDB', 'HomeController@insertDefaultDataIntoDB')->name('insertDefaultDataIntoDB');
