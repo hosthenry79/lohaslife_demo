@@ -2,14 +2,14 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Category;
+use App\Models\Banner;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 
-class CategoryController extends AdminController
+class BannerController extends AdminController
 {
-    protected $title = '目錄';
+    protected $title = '幻燈片';
 
     /**
      * Make a grid builder.
@@ -18,13 +18,15 @@ class CategoryController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Category());
+        $grid = new Grid(new Banner());
 
         $grid->model()->ordered();
 
         $grid->id('ID')->sortable();
 
         $grid->title()->editable();
+        $grid->lang()->editable();
+        $grid->alias()->editable();
         $grid->content()->editable();
         $grid->picture()->image();
 
@@ -43,11 +45,13 @@ class CategoryController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Category());
+        $form = new Form(new Banner());
 
         $form->display('id', 'ID');
 
         $form->text('title')->rules('required');
+        $form->text('lang')->rules('required');
+        $form->text('alias')->rules('required');
         $form->textarea('content')->rules('required');
         $form->image('picture');
 

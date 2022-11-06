@@ -6,10 +6,10 @@ use App\Models\Article;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
-
+use Encore\Admin\Show;
 class ArticleController extends AdminController
 {
-    protected $title = 'Orderable articles';
+    protected $title = '文章';
 
     /**
      * Make a grid builder.
@@ -56,4 +56,26 @@ class ArticleController extends AdminController
 
         return $form;
     }
+
+    // public function detail($id){
+    //     $show = new Show(Article::findOrFail($id));
+
+    //     $show->panel()
+    //         ->style('danger')
+    //         ->title('post基本信息')
+    //         ->tools(function ($tools) {
+    //             // $tools->disableEdit();
+    //         });;
+
+    //     $show->title()->foo();
+    //     $show->content()->json();
+    //     $show->rate();
+    //     $show->created_at();
+    //     $show->updated_at();
+    //     $show->release_at();
+
+    //     $show->divider();
+
+    //     return $show;
+    // }
 }

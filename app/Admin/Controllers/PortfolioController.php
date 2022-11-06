@@ -2,14 +2,14 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Category;
+use App\Models\Portfolio;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 
-class CategoryController extends AdminController
+class PortfolioController extends AdminController
 {
-    protected $title = '目錄';
+    protected $title = '文章';
 
     /**
      * Make a grid builder.
@@ -18,7 +18,7 @@ class CategoryController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new Category());
+        $grid = new Grid(new Portfolio());
 
         $grid->model()->ordered();
 
@@ -43,7 +43,7 @@ class CategoryController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new Category());
+        $form = new Form(new Portfolio());
 
         $form->display('id', 'ID');
 
