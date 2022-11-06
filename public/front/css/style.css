@@ -168,16 +168,16 @@ section {
 	transition: all 0.2s ease-in-out;
 }
 .navbar-default .navbar-brand {
-	background-image: url(../img/logo.png);
+	background-image: url(../img/logo.jpg);
 }
 .navbar-shrink .navbar-brand {
-	background-image: url(../img/logo.png);
+	background-image: url(../img/logo.jpg);
 }
 .navbar-transparent .navbar-brand {
-	background-image: url(../img/logo.png);
+	background-image: url(../img/logo.jpg);
 }
 .navbar-inverse .navbar-brand {
-	background-image: url(../img/logo.png);
+	background-image: url(../img/logo.jpg);
 }
 
 /* Navbar links */
@@ -532,6 +532,17 @@ a.rotate-box-1:hover, a.rotate-box-2:hover {
 }
 .portfolio_content{}
 .portfolio_single_content{
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 5;
+	margin-bottom:30px;
+	overflow:hidden;
+	
+}
+
+.article_single_content{
 	position: relative;
 	top: 0;
 	left: 0;
